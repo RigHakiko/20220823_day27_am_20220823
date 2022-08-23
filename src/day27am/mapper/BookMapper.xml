@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--常用标签和属性
+mapper标签: 所有代码必须声明有mapper标签内
+    namespace属性:
+-->
+<mapper namespace="day27am.mapper.BookMapper">
+    <insert id="addBook">
+        insert into book
+        values (default, #{name}, #{author}, #{price});
+    </insert>
+    <update id="updateBook">
+        update book
+        set book_name   = #{name},
+            book_author = #{author},
+            book_price  = #{price}
+        where book_id = #{id};
+    </update>
+    <delete id="deleteBook">
+        delete
+        from book
+        where book_id = #{value};
+    </delete>
+    <select id="selectBook" resultType="day27am.entity.Book">
+        select book_id as id, book_name as name, book_author as author, book_price as price
+        from book;
+    </select>
+    <select id="selectById" resultType="day27am.entity.Book">
+        select book_id as id, book_name as name, book_author as author, book_price as price
+        from book
+        where book_id = #{value};
+    </select>
+
+    <select id="selectByName" resultType="day27am.entity.Book">
+        select book_id as id, book_name as name, book_author as author, book_price as price
+        from book
+        where book_name like concat('%', #{value}, '%');
+    </select>
+    <select id="selectByAuthor" resultType="day27am.entity.Book">
+        select book_id as id, book_name as name, book_author as author, book_price as price
+        from book
+        where book_author = #{value};
+    </select>
+    <select id="selectBookId" resultType="java.lang.Integer">
+        select book_id from book;
+    </select>
+
+    <select id="selectBookName" resultType="java.lang.String">
+        select book_name from book;
+    </select>
+
+    <select id="selectMaxPrice" resultType="java.lang.Double">
+        select max(book_price) from book;
+    </select>
+</mapper>
